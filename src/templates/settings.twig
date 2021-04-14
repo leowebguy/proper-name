@@ -1,0 +1,35 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.editableTableField({
+    first: true,
+    label: 'List of words',
+    instructions: 'These words should NOT be used on assets name',
+    id: 'wordList',
+    name: 'wordList',
+    fullWidth: false,
+    cols: [
+        {
+            heading : 'Word',
+            type: 'singleline'
+        }
+    ],
+    rows: settings.wordList
+}) }}
+
+{{ forms.selectField({
+    first: true,
+    name: "cacheTime",
+    label: "Cache Time",
+    instructions: "How much time should cache the list of words above"|t,
+    options: {
+        24: "24 hours",
+        168: "1 week",
+        720: "1 month"
+    },
+    value: settings.cacheTime
+}) }}
+
+{# {
+    heading : 'Status',
+    type: 'lightswitch'
+} #}

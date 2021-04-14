@@ -1,0 +1,35 @@
+{
+  "name": "leowebguy/craft-proper-name",
+  "description": "Proper Name plugin for Craft 3",
+  "version": "1.0.0",
+  "type": "craft-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Leo Leoncio",
+      "homepage": "https://github.com/leowebguy"
+    }
+  ],
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.18"
+  },
+  "autoload": {
+    "psr-4": {
+      "leowebguy\\propername\\": "src/"
+    }
+  },
+  "extra": {
+    "name": "Proper Name",
+    "handle": "proper-name",
+    "hasCpSection": false,
+    "hasCpSettings": true,
+    "components": {
+      "propernameService": "leowebguy\\propername\\services\\ProperNameService"
+    },
+    "class": "leowebguy\\propername\\ProperName"
+  },
+  "scripts": {
+    "lint": "vendor/bin/php-cs-fixer fix src --dry-run --rules=@Symfony -vvv",
+    "lint-fix": "vendor/bin/php-cs-fixer fix src --rules=@Symfony -vvv"
+  }
+}
