@@ -2,24 +2,16 @@
 
 Proper Name is a Craft 3 plugin intended to reduce liability and improve SEO by preventing biased (gender, ethnicity...) and/or copyrighted (shutterstock, getty...) assets naming and upload.
 
-![Screenshot](resources/pn1.png)
-
-&nbsp;
+![Screenshot](resources/proper1.png)
 
 ---
 
-### Installation
+## Installation
 
-Open your terminal and go to your Craft project:
-
-```bash
-cd /path/to/project
-```
-
-Then tell Composer to load the plugin:
+From your Craft project:
 
 ```bash
-composer require leowebguy/proper-name
+composer require leowebguy/craft-proper-name
 ```
 
 In the Control Panel, go to Settings → Plugins → "Proper Name" → Install

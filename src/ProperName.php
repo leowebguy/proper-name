@@ -1,7 +1,8 @@
 <?php
 /**
  * Proper Name plugin for Craft CMS 3.x
- * This plugin reduces liability and improves SEO by preventing biased (gender, ethnicity...) and/or copyrighted (shutterstock, getty...) assets naming
+ * This plugin reduces liability and improves SEO by preventing biased (gender, ethnicity...),
+ * copyrighted (shutterstock, getty...) and other not desired/recommended assets naming
  *
  * @author     Leo Leoncio
  * @link       https://github.com/leowebguy
@@ -19,6 +20,9 @@ use craft\events\ReplaceAssetEvent;
 use craft\services\Assets;
 use leowebguy\propername\models\ProperNameModel;
 use yii\base\Event;
+//use craft\events\PluginEvent;
+//use craft\services\Plugins;
+
 
 /**
  * Class ProperName
@@ -32,6 +36,21 @@ class ProperName extends Plugin
         parent::init();
         self::$plugin = $this;
 
+        if (!$this->isInstalled) {
+            return;
+        }
+
+        // after install
+//        Event::on(
+//            Plugins::class,
+//            Plugins::EVENT_AFTER_INSTALL_PLUGIN,
+//            function(PluginEvent $event) {
+//                if ($event->plugin === $this) {
+//                    // do something
+//                }
+//            }
+//        );
+
         // new asset
         Event::on(
             Asset::class,
@@ -40,10 +59,11 @@ class ProperName extends Plugin
                 if ($event->isNew && $event->sender instanceof Asset) {
                     $result = self::$plugin->propernameService->matchName($event->sender->filename);
                     if (!empty($result)) {
-                        $event->sender->addError('filename', Craft::t('proper-name', 'The asset ' . $event->sender->filename . ' has ' .
-                            'NOT recommended words: ' . implode(', ', $result) . ', please rename it and try again.'));
-
-                        return $event->isValid = false;
+                        //$event->sender->addError('title', Craft::t('proper-name', 'The asset provided has ' .
+                        //    'NOT recommended words: ' . implode(', ', $result) . '. Please rename it and try again.'));
+                        //return $event->isValid = false;
+                        throw new \Exception('The asset provided has these NOT recommended words: ' . implode(', ', $result) .
+                            ' Please rename it and try again.');
                     }
                 }
             }
@@ -55,12 +75,13 @@ class ProperName extends Plugin
             Assets::EVENT_BEFORE_REPLACE_ASSET,
             function(ReplaceAssetEvent $event) {
                 if ($event->asset instanceof Asset) {
-                    $result = self::$plugin->propernameService->matchName($event->asset->filename);
+                    $result = self::$plugin->propernameService->matchName($event->replaceWith);
                     if (!empty($result)) {
-                        $event->asset->addError('filename', Craft::t('proper-name', 'The asset ' . $event->asset->filename . ' has ' .
-                            'NOT recommended words: ' . implode(', ', $result) . ', please rename it and try again.'));
-
-                        return $event->isValid = false;
+                        //$event->asset->addError('title', Craft::t('proper-name', 'The asset provided has ' .
+                        //    'NOT recommended words: ' . implode(', ', $result) . '. Please rename it and try again.'));
+                        //return $event->isValid = false;
+                        throw new \Exception('The asset provided has these NOT recommended words: ' . implode(', ', $result) .
+                            ' Please rename it and try again.');
                     }
                 }
             }

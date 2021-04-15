@@ -1,7 +1,8 @@
 <?php
 /**
  * Proper Name plugin for Craft CMS 3.x
- * This plugin reduces liability and improves SEO by preventing biased (gender, ethnicity...) and/or copyrighted (shutterstock, getty...) assets naming
+ * This plugin reduces liability and improves SEO by preventing biased (gender, ethnicity...),
+ * copyrighted (shutterstock, getty...) and other not desired/recommended assets naming
  *
  * @author     Leo Leoncio
  * @link       https://github.com/leowebguy
