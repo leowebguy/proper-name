@@ -3,9 +3,9 @@
 {{ forms.editableTableField({
     first: true,
     label: 'List of words',
-    instructions: 'These words should NOT be used on assets name',
-    id: 'wordList',
+    instructions: 'These words should NOT be used on assets name'|t,
     name: 'wordList',
+    id: 'wordList',
     fullWidth: false,
     cols: [
         {
@@ -18,18 +18,14 @@
 
 {{ forms.selectField({
     first: true,
-    name: "cacheTime",
-    label: "Cache Time",
-    instructions: "How much time should cache the list of words above"|t,
+    label: 'Cache Time',
+    instructions: 'How much time should cache the list of words above'|t,
+    name: 'cacheTime',
+    id: 'cacheTime',
     options: {
-        24: "24 hours",
-        168: "1 week",
-        720: "1 month"
+        24: '24 hours',
+        168: '1 week',
+        720: '1 month'
     },
     value: settings.cacheTime
 }) }}
-
-{# {
-    heading : 'Status',
-    type: 'lightswitch'
-} #}
