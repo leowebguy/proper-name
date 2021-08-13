@@ -18,7 +18,7 @@ In the Control Panel, go to Settings → Plugins → "Proper Name" → Install
 
 ## Testing
 
-Follow [these](https://craftcms.com/docs/3.x/testing/testing-craft/setup.html) steps to setup Codeception then symlink the test file `vendor/leowebguy/craft-proper-name/tests/unit/ProperNameTest.php` into `tests/unit/` folder executing the command below from your project root.
+Follow [these](https://craftcms.com/docs/3.x/testing/testing-craft/setup.html) steps to setup Codeception then symlink the main file `vendor/leowebguy/craft-proper-name/tests/unit/ProperNameTest.php` into `tests/unit/` folder executing the command below from your project root.
 
 ```bash
 ln -s ../../vendor/leowebguy/craft-proper-name/tests/unit/ProperNameTest.php ./tests/unit/ProperNameTest.php;
@@ -26,4 +26,4 @@ ln -s ../../vendor/leowebguy/craft-proper-name/tests/unit/ProperNameTest.php ./t
 
 Then run `php vendor/bin/codecept run unit` from your root
 
-![Screenshot](resources/test.png)
+![Screenshot](resources/main.png)

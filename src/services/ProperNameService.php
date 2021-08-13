@@ -16,7 +16,7 @@ use Craft;
 use craft\base\Component;
 
 /**
- * Class ProperNameService.
+ * Class ProperNameService
  */
 class ProperNameService extends Component
 {

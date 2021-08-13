@@ -16,7 +16,7 @@ use craft\base\Model;
 use craft\validators\ArrayValidator;
 
 /**
- * Class ProperNameModel.
+ * Class ProperNameModel
  */
 class ProperNameModel extends Model
 {
