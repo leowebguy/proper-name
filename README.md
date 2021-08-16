@@ -1,4 +1,5 @@
-# Proper Name plugin for Craft 3
+Proper Name plugin for Craft 3
+===
 
 Proper Name is a Craft 3 plugin intended to reduce liability and improve SEO by preventing biased (gender, ethnicity...) and/or copyrighted (shutterstock, getty...) assets naming and upload.
 

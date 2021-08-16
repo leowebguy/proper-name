@@ -12,17 +12,17 @@
 
 namespace leowebguy\propername;
 
+use leowebguy\propername\models\ProperNameModel;
+
 use Craft;
 use craft\base\Plugin;
-use craft\elements\Asset;
+use craft\elements\Entry;
 use craft\events\ModelEvent;
 use craft\events\PluginEvent;
-use craft\events\ReplaceAssetEvent;
 use craft\helpers\UrlHelper;
-use craft\services\Assets;
 use craft\services\Plugins;
-use leowebguy\propername\models\ProperNameModel;
 use yii\base\Event;
+use craft\elements\db\AssetQuery;
 
 /**
  * Class ProperName
@@ -50,16 +50,6 @@ class ProperName extends Plugin
             Plugins::EVENT_AFTER_INSTALL_PLUGIN,
             function(PluginEvent $event) {
                 if ($event->plugin === $this) {
-
-                    $settings = [
-                        'wordList' => [
-                            ['asian'], ['african'], ['shutterstock'], ['getty'], ['young'], ['elder'], ['woman']
-                        ],
-                        'cacheTime' => '24'
-                    ];
-                    Craft::$app->plugins->getPlugin('proper-name')->setSettings($settings);
-
-                    $this->clearAllCaches();
                     Craft::$app->getResponse()->redirect(
                         UrlHelper::cpUrl('settings/plugins/proper-name')
                     )->send();
@@ -67,36 +57,54 @@ class ProperName extends Plugin
             }
         );
 
-        // new asset
+        // after load
         Event::on(
-            Asset::class,
-            Asset::EVENT_BEFORE_SAVE,
-            function(ModelEvent $event) {
-                if ($event->isNew && $event->sender instanceof Asset) {
-                    $result = self::$plugin->propernameService->matchName($event->sender->filename);
-                    if (!empty($result)) {
-                        //$event->sender->addError('title', Craft::t('proper-name', 'The asset provided has ' .
-                        //    'NOT recommended words: ' . implode(', ', $result) . '. Please rename it and try again.'));
-                        //return $event->isValid = false;
-                        throw new \Exception('The asset provided has these NOT recommended words: ' . implode(', ', $result) . ' Please rename it and try again.');
-                    }
-                }
+            Plugins::class,
+            Plugins::EVENT_AFTER_LOAD_PLUGINS,
+            function() {
+                $this->setSettings([
+                    'wordList' => [
+                        ['asian'], ['african'], ['shutterstock'], ['getty'], ['young'], ['elder'], ['woman']
+                    ],
+                    'cacheTime' => '24'
+                ]);
             }
         );
 
-        // replace asset
+        // after uninstall
         Event::on(
-            Assets::class,
-            Assets::EVENT_BEFORE_REPLACE_ASSET,
-            function(ReplaceAssetEvent $event) {
-                if ($event->asset instanceof Asset) {
-                    $result = self::$plugin->propernameService->matchName($event->filename);
-                    if (!empty($result)) {
-                        //$event->asset->addError('title', Craft::t('proper-name', 'The asset provided has ' .
-                        //    'NOT recommended words: ' . implode(', ', $result) . '. Please rename it and try again.'));
-                        //return $event->isValid = false;
-                        throw new \Exception('The asset provided has these NOT recommended words: ' . implode(', ', $result) . ' Please rename it and try again.');
+            Plugins::class,
+            Plugins::EVENT_AFTER_UNINSTALL_PLUGIN,
+            function() {
+                $this->setSettings([]);
+            }
+        );
+
+        // before save
+        Event::on(
+            Entry::class,
+            Entry::EVENT_BEFORE_SAVE,
+            function (ModelEvent $event) {
+                $result = [];
+                foreach ($event->sender->getFieldValues() as $key => $field) {
+                    if ($field instanceof AssetQuery) {
+                        foreach ($field as $asset) {
+                            $result[$key][] = self::$plugin->propernameService->matchName($asset->filename);
+                        }
                     }
+                }
+                if (!empty($result)) {
+                    $errors = [];
+                    foreach ($result as $field => $value) {
+                        foreach ($value as $asset) {
+                            foreach ($asset as $match) {
+                                $errors[] = $match;
+                            }
+                        }
+                        $event->sender->addError($field, Craft::t('proper-name', 'Asset contains ' .
+                            'these NOT recommended words: ' . implode(', ', $errors) . '. Please rename it and try again.'));
+                    }
+                    return $event->isValid = false;
                 }
             }
         );
