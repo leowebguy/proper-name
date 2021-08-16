@@ -48,7 +48,7 @@ class ProperName extends Plugin
         Event::on(
             Plugins::class,
             Plugins::EVENT_AFTER_INSTALL_PLUGIN,
-            function(PluginEvent $event) {
+            function (PluginEvent $event) {
                 if ($event->plugin === $this) {
                     Craft::$app->getResponse()->redirect(
                         UrlHelper::cpUrl('settings/plugins/proper-name')
@@ -61,7 +61,7 @@ class ProperName extends Plugin
         Event::on(
             Plugins::class,
             Plugins::EVENT_AFTER_LOAD_PLUGINS,
-            function() {
+            function () {
                 $this->setSettings([
                     'wordList' => [
                         ['asian'], ['african'], ['shutterstock'], ['getty'], ['young'], ['elder'], ['woman']
@@ -75,7 +75,7 @@ class ProperName extends Plugin
         Event::on(
             Plugins::class,
             Plugins::EVENT_AFTER_UNINSTALL_PLUGIN,
-            function() {
+            function () {
                 $this->setSettings([]);
             }
         );
