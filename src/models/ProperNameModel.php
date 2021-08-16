@@ -30,10 +30,8 @@ class ProperNameModel extends Model
     // =========================================================================
     public function rules()
     {
-        $rules = [
+        return [
             [['wordList'], ArrayValidator::class],
         ];
-
-        return $rules;
     }
 }
