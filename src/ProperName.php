@@ -88,7 +88,7 @@ class ProperName extends Plugin
                 $result = [];
                 foreach ($event->sender->getFieldValues() as $key => $field) {
                     if ($field instanceof AssetQuery) {
-                        foreach ($field as $asset) {
+                        foreach ($field->all() as $asset) {
                             $result[$key][] = self::$plugin->propernameService->matchName($asset->filename);
                         }
                     }

@@ -16,10 +16,6 @@ use Codeception\Test\Unit;
 use leowebguy\propername\ProperName;
 use UnitTester;
 
-//use Craft;
-//use craft\helpers\App;
-//use Codeception\Util\Debug;
-
 class ProperNameTest extends Unit
 {
     /**

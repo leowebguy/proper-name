@@ -1,5 +1,5 @@
 {
-  "name": "leowebguy/craft-proper-name",
+  "name": "leowebguy/proper-name",
   "description": "This is a Craft 3 plugin intended to prevent biased, copyrighted and other not desired/recommended assets naming.",
   "version": "1.0.0",
   "type": "craft-plugin",
@@ -28,11 +28,14 @@
     },
     "class": "leowebguy\\propername\\ProperName"
   },
-  "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.18"
-  },
   "scripts": {
-    "lint": "vendor/bin/php-cs-fixer fix src --dry-run --rules=@PSR2 -vvv",
-    "lint-fix": "vendor/bin/php-cs-fixer fix src --rules=@PSR2 -vvv"
+    "post-package-install": [
+      "[ -d \"../../tests/unit\" ] && ln -s ../../vendor/leowebguy/proper-name/tests/unit/ProperNameTest.php ../../tests/unit/ProperNameTest.php"
+    ],
+    "post-package-uninstall": [
+      "[ -f \"../../tests/unit/ProperNameTest.php\" ] && rm ../../tests/unit/ProperNameTest.php"
+    ],
+    "lint": "vendor/bin/php-cs-fixer fix src --dry-run --rules=@PSR12 -vvv",
+    "lint-fix": "vendor/bin/php-cs-fixer fix src --rules=@PSR12 -vvv"
   }
 }
