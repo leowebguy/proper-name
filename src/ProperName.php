@@ -101,7 +101,7 @@ class ProperName extends Plugin
                                 $errors[] = $match;
                             }
                         }
-                        $event->sender->addError($field, Craft::t('proper-name', 'Asset contains ' .
+                        $event->sender->addError($field, Craft::t('proper-name', 'Assets contain ' .
                             'these NOT recommended words: ' . implode(', ', $errors) . '. Please rename it and try again.'));
                     }
                     return $event->isValid = false;

@@ -29,12 +29,6 @@
     "class": "leowebguy\\propername\\ProperName"
   },
   "scripts": {
-    "post-package-install": [
-      "[ -d \"../../tests/unit\" ] && ln -s ../../vendor/leowebguy/proper-name/tests/unit/ProperNameTest.php ../../tests/unit/ProperNameTest.php"
-    ],
-    "post-package-uninstall": [
-      "[ -f \"../../tests/unit/ProperNameTest.php\" ] && rm ../../tests/unit/ProperNameTest.php"
-    ],
     "lint": "vendor/bin/php-cs-fixer fix src --dry-run --rules=@PSR2 -vvv",
     "lint-fix": "vendor/bin/php-cs-fixer fix src --rules=@PSR2 -vvv"
   }

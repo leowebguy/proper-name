@@ -59,11 +59,4 @@ class ProperNameTest extends Unit
         self::assertIsArray($result); // wordList is array
         self::assertArrayHasKey(0, $result); // has at least one entry
     }
-
-//    public function testSiteGetStatusCode()
-//    {
-//        $client = Craft::createGuzzleClient();
-//        $response = $client->request('GET', 'http://' . App::env('SITE_URL') . '/');
-//        self::assertEquals($response->getStatusCode(), '200');
-//    }
 }
