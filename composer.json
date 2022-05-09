@@ -1,7 +1,13 @@
 {
   "name": "leowebguy/proper-name",
   "description": "This is a Craft 3 plugin intended to prevent biased, copyrighted and other not desired/recommended assets naming.",
-  "version": "1.0.0",
+  "keywords": [
+    "craftcms",
+    "assets",
+    "names",
+    "naming"
+  ],
+  "version": "1.0.1",
   "type": "craft-plugin",
   "license": "MIT",
   "authors": [
@@ -10,11 +16,16 @@
       "homepage": "https://github.com/leowebguy"
     }
   ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
-    "craftcms/cms": "^3.4.0-RC1"
+    "craftcms/cms": "^4.0.0"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.18"
+    "craftcms/contact-form": "*",
+    "craftcms/ecs": "dev-main",
+    "craftcms/phpstan": "dev-main",
+    "craftcms/rector": "dev-main"
   },
   "autoload": {
     "psr-4": {
@@ -31,8 +42,18 @@
     },
     "class": "leowebguy\\propername\\ProperName"
   },
+  "config": {
+    "platform": {
+      "php": "8.0.2"
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  },
   "scripts": {
-    "lint": "vendor/bin/php-cs-fixer fix src --dry-run --rules=@PSR2 -vvv",
-    "lint-fix": "vendor/bin/php-cs-fixer fix src --rules=@PSR2 -vvv"
+    "check-cs": "ecs check --ansi",
+    "fix-cs": "ecs check --ansi --fix",
+    "phpstan": "phpstan --memory-limit=1G"
   }
 }

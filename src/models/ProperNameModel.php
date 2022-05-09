@@ -28,7 +28,7 @@ class ProperNameModel extends Model
 
     // Public Methods
     // =========================================================================
-    public function rules()
+    public function rules(): array
     {
         return [
             [['wordList'], ArrayValidator::class],
