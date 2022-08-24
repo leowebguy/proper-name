@@ -18,6 +18,7 @@ use Craft;
 use craft\base\Plugin;
 use craft\elements\Entry;
 use craft\events\ModelEvent;
+use craft\base\Model;
 use craft\events\PluginEvent;
 use craft\helpers\UrlHelper;
 use craft\services\Plugins;
@@ -78,8 +79,8 @@ class ProperName extends Plugin
                                 $errors[] = $match;
                             }
                         }
-                        $event->sender->addError($field, Craft::t('proper-name', 'Assets contain ' .
-                            'these NOT recommended words: ' . implode(', ', $errors) . '. Please rename it and try again.'));
+                        $event->sender->addError($field, 'Assets contain these NOT recommended ' .
+                            'words: ' . implode(', ', $errors) . '. Please rename it and try again.');
                     }
                     return $event->isValid = false;
                 }
@@ -88,18 +89,14 @@ class ProperName extends Plugin
 
         // log info
         Craft::info(
-            Craft::t(
-                'proper-name',
-                '{name} plugin loaded',
-                ['name' => $this->name]
-            ),
+            'Proper Name plugin loaded',
             __METHOD__
         );
     }
 
     // Protected Methods
     // =========================================================================
-    protected function createSettingsModel(): ?\craft\base\Model
+    protected function createSettingsModel(): ?Model
     {
         return new ProperNameModel();
     }
