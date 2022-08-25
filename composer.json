@@ -1,13 +1,13 @@
 {
   "name": "leowebguy/proper-name",
-  "description": "This is a Craft 3 plugin intended to prevent biased, copyrighted and other not desired/recommended assets naming.",
+  "description": "Plugin intended to prevent biased, copyrighted and other not desired/recommended assets naming.",
   "keywords": [
     "craftcms",
     "assets",
     "names",
     "naming"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "craft-plugin",
   "license": "MIT",
   "authors": [
