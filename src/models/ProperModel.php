@@ -1,12 +1,13 @@
 <?php
 /**
- * Proper Name plugin for Craft CMS 3.x
+ * Proper Name plugin for Craft CMS
+ *
  * This plugin reduces liability and improves SEO by preventing biased (gender, ethnicity...),
- * copyrighted (shutterstock, getty...) and other not desired/recommended assets naming.
+ * copyrighted (shutterstock, getty...) and other non desired naming.
  *
  * @author     Leo Leoncio
  * @see        https://github.com/leowebguy
- * @copyright  Copyright (c) 2021, leowebguy
+ * @copyright  Copyright (c) 2023, leowebguy
  * @license    MIT
  */
 
@@ -15,19 +16,18 @@ namespace leowebguy\propername\models;
 use craft\base\Model;
 use craft\validators\ArrayValidator;
 
-/**
- * Class ProperNameModel
- */
-class ProperNameModel extends Model
+class ProperModel extends Model
 {
     // Properties
     // =========================================================================
-    public $wordList = [];
 
-    public $cacheTime = 24;
+    public array $wordList = [];
+
+    public int $cacheTime = 24;
 
     // Public Methods
     // =========================================================================
+
     public function rules(): array
     {
         return [

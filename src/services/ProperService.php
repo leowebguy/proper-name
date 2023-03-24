@@ -1,12 +1,13 @@
 <?php
 /**
- * Proper Name plugin for Craft CMS 3.x
+ * Proper Name plugin for Craft CMS
+ *
  * This plugin reduces liability and improves SEO by preventing biased (gender, ethnicity...),
- * copyrighted (shutterstock, getty...) and other not desired/recommended assets naming.
+ * copyrighted (shutterstock, getty...) and other non desired naming.
  *
  * @author     Leo Leoncio
  * @see        https://github.com/leowebguy
- * @copyright  Copyright (c) 2021, leowebguy
+ * @copyright  Copyright (c) 2023, leowebguy
  * @license    MIT
  */
 
@@ -16,51 +17,55 @@ use Craft;
 use craft\base\Component;
 
 /**
- * Class ProperNameService
+ * @property-read array $list
  */
-class ProperNameService extends Component
+class ProperService extends Component
 {
     // Public Methods
     // =========================================================================
-    public function matchName($filename)
+
+    /**
+     * @param $filename
+     * @return array
+     */
+    public function matchName($filename): array
     {
         $list = implode('|', $this->getList());
-
         if (!empty($list)) {
             preg_match_all('/' . $list . '/mi', $filename, $matches);
             if (!empty($matches[0])) {
                 return $matches[0];
             }
         }
-
         return [];
     }
 
     // Private Methods
     // =========================================================================
-    private function getList()
+
+    /**
+     * @return array|mixed
+     */
+    private function getList(): mixed
     {
         $list = Craft::$app->cache->get('propername_list') ?: [];
 
-        // empty cache
+        // Empty cache
         if (empty($list)) {
             $settings = Craft::$app->plugins->getPlugin('proper-name')->getSettings();
             $full_list = $settings['wordList'];
 
-            // empty settings > wordList
+            // Empty settings > wordList
             if (empty($full_list)) {
                 return [];
             }
-
             foreach ($full_list as $value) {
                 if (!empty($value[0])) {
                     $list[] = $value[0];
                 }
             }
-
             Craft::$app->cache->set('propername_list', $list, 60 * 60 * ((int)$settings['cacheTime']));
         }
-
         return $list;
     }
 }

@@ -1,12 +1,13 @@
 <?php
 /**
- * Proper Name plugin for Craft CMS 3.x
+ * Proper Name plugin for Craft CMS
+ *
  * This plugin reduces liability and improves SEO by preventing biased (gender, ethnicity...),
- * copyrighted (shutterstock, getty...) and other not desired/recommended assets naming.
+ * copyrighted (shutterstock, getty...) and other non desired naming.
  *
  * @author     Leo Leoncio
  * @see        https://github.com/leowebguy
- * @copyright  Copyright (c) 2021, leowebguy
+ * @copyright  Copyright (c) 2023, leowebguy
  * @license    MIT
  */
 
@@ -16,9 +17,6 @@ use Craft;
 use craft\db\Migration;
 use leowebguy\propername\ProperName;
 
-/**
- * Install migration.
- */
 class Install extends Migration
 {
     /**

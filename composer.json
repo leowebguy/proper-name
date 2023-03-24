@@ -1,13 +1,13 @@
 {
   "name": "leowebguy/proper-name",
-  "description": "Plugin intended to prevent biased, copyrighted and other not desired/recommended assets naming.",
+  "description": "Plugin intended to prevent biased, copyrighted and other non desired naming.",
   "keywords": [
     "craftcms",
     "assets",
     "names",
     "naming"
   ],
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "craft-plugin",
   "license": "MIT",
   "authors": [
@@ -19,7 +19,8 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "craftcms/cms": "^3.0|^4.0"
+    "php": "^8.0",
+    "craftcms/cms": "^4.0"
   },
   "require-dev": {
     "craftcms/ecs": "dev-main",
@@ -34,11 +35,6 @@
   "extra": {
     "name": "Proper Name",
     "handle": "proper-name",
-    "hasCpSection": false,
-    "hasCpSettings": true,
-    "components": {
-      "propernameService": "leowebguy\\propername\\services\\ProperNameService"
-    },
     "class": "leowebguy\\propername\\ProperName"
   },
   "config": {
@@ -53,6 +49,7 @@
   "scripts": {
     "check-cs": "vendor/bin/ecs check src --ansi",
     "fix-cs": "vendor/bin/ecs check src --ansi --fix",
-    "phpstan": "vendor/bin/phpstan analyse src"
+    "phpstan": "vendor/bin/phpstan analyse src",
+    "rector": "vendor/bin/rector process src --config vendor/craftcms/rector/sets/craft-cms-40.php"
   }
 }
