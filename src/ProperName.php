@@ -20,7 +20,6 @@ use Twig\Error\SyntaxError;
 use craft\base\Element;
 use craft\base\Model;
 use craft\base\Plugin;
-use craft\elements\Entry;
 use craft\elements\db\AssetQuery;
 use craft\events\ModelEvent;
 use craft\events\PluginEvent;
@@ -71,7 +70,7 @@ class ProperName extends Plugin
         );
 
         Event::on(
-            Entry::class,
+            Element::class,
             Element::EVENT_BEFORE_SAVE,
             function(ModelEvent $event) {
                 $result = [];
@@ -90,7 +89,7 @@ class ProperName extends Plugin
                                 $errors[] = $match;
                             }
                         }
-                        $event->sender->addError($field, 'Assets contain these NOT recommended ' .
+                        $event->sender->addError($field, 'Asset contain these NOT recommended ' .
                             'words: ' . implode(', ', $errors) . '. Please rename it and try again.');
                     }
                     return $event->isValid = false;
